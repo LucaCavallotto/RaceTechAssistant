@@ -1,0 +1,542 @@
+:root{
+  --bg-1:#0e0f13;
+  --bg-2:#171922;
+  --bg-3:#1f2330;
+  --border:#2a2f3f;
+  --text:#f3f7fb;
+  --muted:#c7cfde;
+  --brand:#ff2a26;
+  --ok:#9cf08a;
+  --err:#ff9a9a;
+  --radius:14px;
+  --shadow:0 10px 30px rgba(0,0,0,.28);
+
+  /* === UNIFORM SPACING SYSTEM === */
+  --space-xs: 4px;    /* Micro spacing */
+  --space-sm: 8px;    /* Small spacing */
+  --space-md: 16px;   /* Medium spacing (default) */
+  --space-lg: 24px;   /* Large spacing */
+  --space-xl: 32px;   /* Extra large spacing */
+  --space-2xl: 48px;  /* Maximum spacing */
+  
+  /* Component-specific tokens */
+  --gap-results: var(--space-md);      /* Grid gaps */
+  --card-padding: var(--space-md);     /* Card internal padding */
+  --card-min-height: 84px;             /* Minimum card height */
+  --input-padding: 10px 12px;          /* Input internal padding */
+  --button-padding: 10px 14px;         /* Button padding */
+  --section-gap: var(--space-lg);      /* Gap between major sections */
+  
+  /* Layout tokens */
+  --navH: 56px;
+  --col-min-desktop: 160px;
+  --col-min-tablet: 150px;
+  --col-min-mobile: 140px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; 
+  min-height:100vh; 
+  display:flex; 
+  flex-direction:column;
+  font:16px/1.5 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background: var(--bg-1);
+  -webkit-font-smoothing:antialiased; 
+  -moz-osx-font-smoothing:grayscale;
+}
+a{color:inherit;text-decoration:none}
+
+/* Improve Bootstrap contrasts */
+.card, .card * { color: inherit; }
+.text-muted, .text-body-secondary { color: var(--muted)!important; }
+
+/* === NAVBAR === */
+.navbar{
+  background:rgba(15,17,24,.75)!important; 
+  backdrop-filter:saturate(140%) blur(8px);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+.navbar.navbar-dark .navbar-toggler-icon{filter: invert(1) grayscale(100%)}
+.brand{
+  display:flex;
+  align-items:center;
+  gap: var(--space-sm);
+  font-weight:700;
+}
+.nav-link.btn{
+  color:var(--muted);
+  margin: 0 var(--space-xs);
+}
+.nav-link.btn.active, .nav-link.btn:focus{
+  color:var(--text); 
+  background:linear-gradient(180deg,#1d2231,#121725); 
+  border-radius:999px;
+}
+
+/* === MAIN LAYOUT === */
+main{
+  flex:1;
+  padding: var(--space-lg) 0 var(--space-lg) 0;
+  background: var(--bg-1);
+}
+
+.page-title{
+  margin: 0 0 var(--space-xs);
+  font-size:clamp(22px,3vw,34px);
+  letter-spacing:-.02em;
+}
+.page-desc{
+  margin: 0 0 var(--space-lg);
+  color:var(--muted);
+}
+
+/* === CARDS === */
+.card{
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.card-body {
+  padding: var(--card-padding);
+}
+.card h3{
+  margin: 0 0 var(--space-sm);
+  font-size:16px;
+}
+
+/* === FORM ELEMENTS === */
+label{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin: var(--space-xs) 0 var(--space-xs);
+}
+.input{
+  display:flex;
+  align-items:stretch;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  background:#111420;
+  margin-bottom: var(--space-sm);
+}
+.input.input-error{
+  border-color: var(--err);
+}
+.input input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  padding: var(--input-padding);
+  font-size:14px;
+}
+.input input::placeholder{color:#9aa3b2; opacity:1}
+.unit{
+  display:flex;
+  align-items:center;
+  padding: 0 var(--space-sm);
+  background:#141828;
+  border-left:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin: var(--space-xs) 0;
+}
+
+/* Error messages */
+.error-message{
+  display:none;
+  color:var(--err);
+  font-size:12px;
+  margin-top: var(--space-xs);
+}
+.error-message.show{
+  display:block;
+}
+
+/* === BUTTONS === */
+.btns{
+  display:flex;
+  gap: var(--space-sm);
+  flex-wrap:wrap;
+  margin-top: var(--space-md);
+}
+button{
+  border:1px solid var(--border);
+  background:#22263a;
+  color:var(--text);
+  padding: var(--button-padding);
+  border-radius:12px;
+  cursor:pointer;
+}
+button.primary{
+  background:linear-gradient(180deg,#ff4b45,#d92a26);
+  border-color:#9e1917;
+}
+button.secondary{background:#22263a}
+button:disabled{opacity:.6;cursor:not-allowed}
+
+/* === RESULTS === */
+.result{
+  margin-top: var(--space-md);
+  border:1px solid var(--border);
+  background:#111420;
+  border-radius:12px;
+  padding: var(--space-sm);
+  white-space:pre-wrap;
+  min-height: 44px;
+  display:none;
+  color:var(--text);
+}
+.ok{color:var(--ok);font-weight:600}
+.err{color:var(--err);font-weight:600}
+
+/* === MODE TOGGLE === */
+.mode-toggle{
+  display:inline-flex;
+  border:1px solid var(--border);
+  background:#101420;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom: var(--space-md);
+}
+.mode-toggle button{
+  padding: var(--space-sm) var(--space-sm);
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+}
+.mode-toggle button[aria-pressed="true"]{
+  background:#1b2030;
+  color:var(--text);
+}
+
+/* === FUEL CALLOUT === */
+.big-callout{
+  display:none;
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border-radius:14px;
+  border:1px solid #9e1917;
+  background:linear-gradient(180deg,rgba(255,75,69,.15),rgba(217,42,38,.08));
+  box-shadow:var(--shadow);
+  text-align:center;
+  color:var(--text);
+}
+.big-callout h4{
+  margin: 0 0 var(--space-xs);
+  font-size:18px;
+  letter-spacing:.02em;
+}
+.big-callout .liters{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.big-callout .margin-note{
+  font-size:14px;
+  color:var(--muted);
+  margin-top: var(--space-xs);
+}
+
+/* === TYRE LAYOUTS === */
+.tyre-highlight{
+  border:1px solid #9e1917 !important;
+  background:linear-gradient(180deg,rgba(255,75,69,.15),rgba(217,42,38,.08)) !important;
+  box-shadow:var(--shadow);
+}
+
+/* Tyre grid in forms (2x2 layout) */
+.tyre-grid{
+  display:grid;
+  gap: var(--space-md);
+  grid-template-columns:1fr 1fr;
+  grid-template-areas:'fr fl' 'rl rr';
+  align-items:start;
+  margin-bottom: var(--space-md);
+}
+.tyre-fl{grid-area:fl}
+.tyre-fr{grid-area:fr}
+.tyre-rl{grid-area:rl}
+.tyre-rr{grid-area:rr}
+
+/* === STATS GRIDS === */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap: var(--gap-results);
+}
+.stat-card{
+  background:var(--bg-3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  text-align:center;
+  padding: var(--card-padding);
+  min-height: var(--card-min-height);
+  display:flex; 
+  flex-direction:column; 
+  justify-content:center; 
+  align-items:center;
+}
+.stat-card strong{
+  font-size:18px; 
+  margin-bottom: var(--space-xs);
+}
+
+/* === PITSTOP GRID === */
+.pitstop-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap: var(--gap-results);
+  margin-top: var(--section-gap);
+}
+.pitstop-card{
+  background:var(--bg-3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  text-align:center;
+  padding: var(--card-padding);
+  min-height: var(--card-min-height);
+  display:flex; 
+  flex-direction:column; 
+  justify-content:center; 
+  align-items:center;
+}
+.pitstop-card strong{
+  font-size:18px; 
+  margin-bottom: var(--space-xs);
+}
+.pitstop-card.total-fuel{
+  background:linear-gradient(180deg,rgba(255,75,69,.15),rgba(217,42,38,.08));
+  border:1px solid #9e1917;
+}
+
+.unit-inline{color:var(--text)}
+
+footer{
+  border-top: 1px solid var(--border);
+  background: var(--bg-1);
+  color: var(--muted);
+  padding: var(--space-lg) 0;
+}
+
+/* Enhanced tyre cards in results */
+.tyre-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+  border: 1px solid #3a4258;
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+}
+.tyre-card strong{ font-size:20px; }
+
+/* === RESULTS LAYOUT SYSTEM === */
+.results-split{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-results);
+}
+.tyre-2x2{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-results);
+}
+.side-stats{
+  display:grid;
+  grid-auto-rows: minmax(var(--card-min-height), auto);
+  gap: var(--gap-results);
+}
+
+/* Uniform spacing between result sections */
+#temp-wrap, 
+#brake-wrap, 
+#pitstop-grid{ 
+  margin-top: var(--section-gap) !important; 
+}
+
+/* === FORM CONSISTENCY === */
+.form-section {
+  margin-bottom: var(--space-md);
+}
+.form-section .row.g-3 {
+  margin-bottom: var(--space-sm);
+}
+.form-section .tyre-grid {
+  margin-bottom: var(--space-md);
+}
+.form-section .btns {
+  margin-top: var(--space-md);
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Mobile adjustments */
+@media (max-width: 576px){
+  :root{ 
+    --gap-results: var(--space-sm); 
+    --card-min-height: 80px;
+    --section-gap: var(--space-md);
+  }
+  
+  main {
+    padding: var(--space-md) 0 var(--space-md) 0;
+  }
+  
+  .page-desc {
+    margin-bottom: var(--space-md);
+  }
+
+  /* Keep tyres 2×2 in RESULTS */
+  #temp-tyre-grid.tyre-2x2,
+  #brake-tyre-grid.tyre-2x2{
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Forms: tyre inputs become 1 column */
+  #panel-temp .tyre-grid,
+  #panel-brake .tyre-grid{
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      'fr'
+      'fl'
+      'rl'
+      'rr' !important;
+    gap: var(--space-sm);
+  }
+  
+  #panel-temp label, 
+  #panel-brake label{ 
+    font-size:12px; 
+  }
+  
+  #panel-temp .input input, 
+  #panel-brake .input input{ 
+    font-size:16px; 
+    padding: var(--input-padding); 
+    min-width:0; 
+  }
+  
+  #panel-temp .unit, 
+  #panel-brake .unit{ 
+    font-size:12px; 
+    padding: 0 var(--space-sm); 
+  }
+  
+  #panel-temp .row.g-3, 
+  #panel-brake .row.g-3{ 
+    --bs-gutter-y: var(--space-sm); 
+  }
+
+  /* Pitstop grid on mobile */
+  .pitstop-grid{
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+/* Tablet and desktop column layouts */
+@media (min-width: 992px){
+  #temp-stats, #brake-summary{
+    display:grid;
+    grid-template-columns: repeat(4, minmax(var(--col-min-desktop), 1fr)) !important;
+    gap: var(--gap-results);
+  }
+  .pitstop-grid{
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+@media (max-width: 991.98px) and (min-width: 576px){
+  #temp-stats, #brake-summary{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(var(--col-min-tablet), 1fr)) !important;
+    gap: var(--gap-results);
+  }
+  .pitstop-grid{
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+@media (max-width: 575.98px){
+  #temp-stats, #brake-summary{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(var(--col-min-mobile), 1fr)) !important;
+    gap: var(--gap-results);
+  }
+}
+
+/* === NAVBAR MOBILE ENHANCEMENTS === */
+.navbar .navbar-toggler{ 
+  border-color:#fff !important; 
+  padding: var(--space-xs);
+}
+.navbar .navbar-toggler:focus{ 
+  box-shadow:0 0 0 .25rem rgba(255,255,255,.25); 
+}
+.navbar .navbar-toggler-icon{
+  filter:none !important;
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+/* Mobile navbar overlay */
+@media (max-width: 767.98px){
+  .navbar.sticky-top{ z-index:1060; }
+  .navbar .collapse.show,
+  .navbar .collapsing{
+    position: fixed;
+    top: var(--navH);
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - var(--navH));
+    overflow: auto;
+    background: rgba(15,17,24,0.97);
+    border-top: 1px solid var(--border);
+    z-index: 1050;
+    padding: var(--space-sm) var(--space-md);
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+  }
+  .navbar .navbar-nav{ 
+    gap: var(--space-sm); 
+  }
+  .navbar .navbar-nav .nav-link.btn{ 
+    display:block; 
+    width:100%; 
+    text-align:left; 
+    border-radius:12px;
+    margin: 0;
+    padding: var(--space-sm) var(--space-md);
+  }
+  .navbar.overlay-open{ 
+    border-bottom-color: transparent !important; 
+  }
+  .navbar .navbar-brand{
+    margin-left:0 !important;
+    margin-right:auto !important;
+  }
+}
+
+/* === BOOTSTRAP GRID OVERRIDES FOR UNIFORM SPACING === */
+.row.g-3 {
+  --bs-gutter-x: var(--space-md);
+  --bs-gutter-y: var(--space-md);
+}
+
+.row.g-2 {
+  --bs-gutter-x: var(--space-sm);
+  --bs-gutter-y: var(--space-sm);
+}
+
+/* Hide inactive panels completely */
+.inactive-panel {
+  display: none !important;
+}
